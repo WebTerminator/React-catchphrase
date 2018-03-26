@@ -12,43 +12,39 @@ class Controls extends Component {
     }
   }
 
-  showButtonBGColor = color => {
-    switch (color) {
-      case 'default':
-        return 'grey';
-        break;
-      case 'correct':
-        return 'green';
-        break;
-      case 'incorrect':
-        return 'red';
-        break;
-    }
-  }
-
   handleClick = e => {
     const ev = e.target
     const optionN = ev.getAttribute('data-option')
     const button = "button" + optionN
-    const SPEED = 1000
-
-    // hide a single grid item
-    this.props.onClick()
+    const SPEED = 2000
+    const { 
+      hideGridItem, 
+      getNewQuestion, 
+      increaseCount, 
+      decreaseCount 
+    } = this.props
 
     if(this.props.getAnswer(e)) {
+      increaseCount()
       this.setState({
-        [button] : 'correct'
+        [button] : 'green'
+      }, () => {
+        setTimeout(() => {
+         hideGridItem()
+        }, SPEED)
       })
     }
     else {
+      decreaseCount()
       this.setState({
-        [button] : 'incorrect'
+        [button] : 'red'
       })
     }
     setTimeout(() => { 
       this.setState({
-        [button] : 'default'
+        [button] : 'grey'
       })
+      getNewQuestion()
     }, SPEED);
   }
   render() {
@@ -59,25 +55,25 @@ class Controls extends Component {
       <div className="controls">
         <button 
           onClick={this.handleClick} 
-          className={ "button " + this.showButtonBGColor(state.button1)} 
+          className={ "button " + state.button1} 
           data-option="1">
             {answers.option_1}
         </button>
         <button 
           onClick={this.handleClick} 
-          className={ "button " + this.showButtonBGColor(state.button2)} 
+          className={ "button " + state.button2} 
           data-option="2">
             {answers.option_2}
         </button>
         <button 
           onClick={this.handleClick} 
-          className={ "button " + this.showButtonBGColor(state.button3)} 
+          className={ "button " + state.button3} 
           data-option="3">
             {answers.option_3}
         </button>
         <button 
           onClick={this.handleClick} 
-          className={ "button " + this.showButtonBGColor(state.button4)} 
+          className={ "button " + state.button4} 
           data-option="4">
             {answers.option_4}
         </button>

@@ -1,0 +1,82 @@
+* {
+  box-sizing: border-box;
+}
+
+.grid,
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid {
+  margin: 5px;
+}
+
+.panel {
+  padding: 10px 15px;
+  margin: 15px 5px 5px;
+  background-color: #ccc;
+}
+
+button {
+  -webkit-appearance: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.grid > div,
+.controls button {
+  flex-grow: 1;
+}
+
+.grid > div {
+  box-sizing: border-box;
+  background-color: #ccc;
+  border: 1px solid #000;
+  flex-basis: 20%;
+  text-align: center;
+  padding: 10px;
+  height: calc(65vh/4);
+  max-height: 15vh;
+  transition: opacity .3s ease-in-out;
+}
+
+.grid > div.hide {
+  opacity: 0!important;
+}
+
+.controls button {
+  flex-basis: 48%;
+  text-align: center;
+  margin: 10px 5px 5px;
+  border: 0;
+  background-color: #ccc;
+  padding: 10px 15px;
+  transition: all .3s ease-in-out;
+}
+
+.hidden {
+  display: none;
+}
+
+.controls .green {
+  background-color: #b1d0b4;
+  pointer-events: none;
+}
+
+.controls .red {
+  background-color: red;
+  pointer-events: none;
+}
+
+.flex {
+  display: flex;
+  padding: 10px;
+}
+
+.flex .react-countdown-clock,
+.flex p {
+  flex-grow: 1;
+}
+
+@import 'test.scss'

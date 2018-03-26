@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles/App.scss';
 
 import gridItemsCollection from './data.js'
 
@@ -11,9 +11,18 @@ import View from './components/view.js'
 
 import generateRandomNumber from './components/Utilities'
 import axios from 'axios'
+import ReactCountdownClock from 'react-countdown-clock'
 
 const utilityArray = []
 const tempQuestions = []
+const finalQuestion = {
+  "question":"Whic city is it?",
+  "option_1":"London",
+  "option_2":"Rome",
+  "option_3":"Paris",
+  "option_4":"Berlin",
+  "correct_option": 1
+}
 
 class App extends Component {
   constructor(props) {
@@ -27,7 +36,8 @@ class App extends Component {
       grid: false,
 
       questions: this.props.questions,
-      selectedQuestion: ""
+      selectedQuestion: "",
+      result: 0
     }
   }
 
@@ -36,18 +46,34 @@ class App extends Component {
     return s
   }
 
+  getNewQuestion = () => {
+    const questions = this.state.questions.questions
+    let randomNumber = this.getRandomN(tempQuestions, questions.length)
+    this.generateNewQuestion(questions[randomNumber])
+  }
+
+  increaseCount = () => {
+    this.setState({
+      result: this.state.result + 1
+    })
+  }
+
+  decreaseCount = () => {
+    this.setState({
+      result: this.state.result - 1
+    })
+  }
+
   hideGridItem(e) {
     let index = this.getRandomN(utilityArray, gridItemsCollection.length),
         collection = this.state.collection,
-        newCollection,
-        questions = this.state.questions.questions,
-        n = this.getRandomN(tempQuestions, questions.length);
+        newCollection;
 
     this.setState({
       newCollection: [ ...collection, collection[index].hidden = true ]
     })
 
-    this.generateNewQuestion(questions[n])
+    this.getNewQuestion()
   }
 
   generateNewQuestion(selectedQuestion) {
@@ -58,8 +84,7 @@ class App extends Component {
 
   componentDidMount = () => {
     const questions = this.state.questions.questions
-    let randomNumber = this.getRandomN(tempQuestions, questions.length)
-    this.generateNewQuestion(questions[randomNumber])
+    this.getNewQuestion()
   }
 
   getAnswer = e => 
@@ -71,6 +96,9 @@ class App extends Component {
       grid: true,
     })
   }
+  myCallback = () => {
+    this.generateNewQuestion(finalQuestion)
+  }
 
   render() {
     const state = this.state
@@ -79,25 +107,45 @@ class App extends Component {
       grid, 
       intro, 
       selectedQuestion, 
-      buttons
+      buttons,
+      result,
+      increaseCount,
+      decreaseCount
     } = state
 
     return (
       <div className="wrapper">
         <div className="wrapper-inner">
-          <View isVisible={state.intro}>
+          <View className="intro-title" isVisible={state.intro}>
             <p> Hello and welcome, answer as many questions as possible in 1 min and 30 seconds. </p>
             <button onClick={this.goNext}>Start playing</button>
           </View>
           <View isVisible={state.grid}>
-            <Grid gridItemsCollection={collection}/>
+            <div className="flex info-wrapper">
+              <p>Current score: {result}</p>
+              { state.grid ?
+                <ReactCountdownClock 
+                  seconds={90}
+                  color="#000"
+                  alpha={0.9}
+                  size={50} 
+                  onComplete={this.myCallback} 
+                />
+                :
+                null
+              }
+            </div>
+            <Grid gridItemsCollection={collection} />
             <Question question={selectedQuestion.question} />
             <Controls 
-              onClick={this.hideGridItem.bind(this)} 
+              hideGridItem={this.hideGridItem.bind(this)} 
               gridItemsCollection={collection} 
               answers={selectedQuestion}
               buttons={buttons}
               getAnswer={this.getAnswer}
+              getNewQuestion={this.getNewQuestion}
+              increaseCount={this.increaseCount}
+              decreaseCount={this.decreaseCount}
             />
           </View>
         </div>

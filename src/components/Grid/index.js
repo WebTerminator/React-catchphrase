@@ -5,13 +5,13 @@ import GridItem from './gridItem.js'
 class Grid extends Component {
   renderGridItems = () => 
     this.props.gridItemsCollection.map(el =>
-      <GridItem hidden={ el.hidden ? "hide" : "" } key={el.id} id={el.id}>{el.id}</GridItem>
+      <GridItem hidden={ el.hidden ? "hide" : "" } key={el.id} id={el.id} />
     )
   
   render() {
     return (
       <div className="grid">
-        {this.renderGridItems()}
+        {this.renderGridItems()} 
       </div>
     );
   }

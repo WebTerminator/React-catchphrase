@@ -1,0 +1,108 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+.grid,
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid {
+  margin: 5px;
+  background: url("https://hoteles4you.com/wp-content/uploads/2016/08/vivir-en-londres-atardecer.jpg") no-repeat 0 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.panel {
+  padding: 10px 15px 10px 0;
+  margin: 15px 5px 5px;
+  background-color: #fff;
+  color: #333;
+  border-bottom: 1px solid #333;
+}
+
+button {
+  -webkit-appearance: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.grid > div,
+.controls button {
+  flex-grow: 1;
+}
+
+.grid > div {
+  box-sizing: border-box;
+  background-color: #ccc;
+  border-bottom: 1px solid #fff;
+  border-right: 1px solid #fff;
+  flex-basis: 20%;
+  text-align: center;
+  padding: 10px;
+  height: calc(65vh/4);
+  max-height: 15vh;
+  transition: opacity .3s ease-in-out;
+
+  &.hide {
+    opacity: 0!important;
+  }
+}
+
+.controls button {
+  flex-basis: 48%;
+  text-align: center;
+  margin: 10px 5px 5px;
+  border: 0;
+  padding: 10px 15px;
+  transition: all .3s ease-in-out;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #333;
+}
+
+.hidden {
+  display: none!important;
+}
+
+.controls {
+  .green {
+    background-color: #b1d0b4;
+    pointer-events: none;
+  }
+  
+  .red {
+    background-color: red;
+    pointer-events: none;
+  }
+}
+
+.flex {
+  display: flex;
+  padding: 10px;
+}
+
+.info-wrapper {
+  p {
+    flex-grow: 1;
+  }
+}
+
+.intro-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+
+  p {
+    font-size: 20px;
+  }
+}
+
+button, p {
+  font-size: 16px;
+}
