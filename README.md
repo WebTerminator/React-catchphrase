@@ -1,5 +1,14 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
+This was a little prototype that I built in React and ES6. The same game was built by myself about a year ago (https://www.the-bigreveal.com/, with very little React experience) and I decided to rebuild it by improving the code with:
+
+- staless components
+- destructuring 
+- update of the state dynamically
+- very little use of PropTypes (I guess more appropriate on a large application)
+- overall less code then the original version
+
+
 Below you will find some information on how to perform common tasks.<br>
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
